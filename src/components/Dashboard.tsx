@@ -6,13 +6,30 @@ import NewsFeed from "./NewsFeed";
 import SearchBar from "./SearchBar";
 
 const Dashboard = () => {
-  const { stories, error, isLoading, fetchNewsStories } = useNews();
+  const {
+    stories,
+    error,
+    isLoading,
+    fetchNewsStories,
+    searchTerm,
+    setSearchTerm,
+  } = useNews();
   const [selectedStoryType, setSelectedStoryType] = useState<StoryType>("top");
-  const [searchTerm, setSearchTerm] = useState("");
 
   const handleFilterChange = (filterType: string) => {
     setSelectedStoryType(filterType as StoryType);
     fetchNewsStories(filterType);
+  };
+
+  const filteredStories = (searchTerm: string) => {
+    if (searchTerm !== "") {
+      return stories.filter(
+        (story) =>
+          story.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          story.by.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    return stories;
   };
 
   return (
@@ -30,7 +47,11 @@ const Dashboard = () => {
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
       <div>
-        <NewsFeed stories={stories} error={error} isLoading={isLoading} />
+        <NewsFeed
+          stories={filteredStories(searchTerm)}
+          error={error}
+          isLoading={isLoading}
+        />
       </div>
     </div>
   );
