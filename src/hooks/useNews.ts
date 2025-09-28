@@ -9,6 +9,13 @@ const useNews = () => {
 
   const BASE_URL = import.meta.env.VITE_API_URL;
 
+  const searchStories = async (searchTerm: string) => {
+    const res = await fetch(`$(BASE_URL)`);
+    const data = await res.json();
+    setStories(data);
+
+  };
+
   const fetchNewsStories = async (type: string = "top") => {
     const endpoints = {
       top: `${BASE_URL}/topstories.json`,
@@ -40,15 +47,9 @@ const useNews = () => {
       setIsLoading(false);
     }
 
-    const searchStories = async (searchTerm: string) => {
-      const res = await fetch(`$(BASE_URL)/search.json?query=${searchTerm}`);
-      const data = await res.json();
-      setStories(data);
-    };
-
     searchStories(searchTerm);
     setIsLoading(false);
-    setSearchTerm("");
+  setSearchTerm("");
   };
 
   useEffect(() => {
