@@ -8,11 +8,11 @@ import SearchBar from "./SearchBar";
 const Dashboard = () => {
   const {
     stories,
+    searchTerm,
+    setSearchTerm,
     error,
     isLoading,
     fetchNewsStories,
-    searchTerm,
-    setSearchTerm,
   } = useNews();
   const [selectedStoryType, setSelectedStoryType] = useState<StoryType>("top");
 
@@ -39,7 +39,7 @@ const Dashboard = () => {
           HackerNews
         </h1>
       </header>
-      <div className="flex justify-center">
+      <div className="flex items center">
         <FilterBar
           activeFilter={selectedStoryType}
           onStoryChange={handleFilterChange}
