@@ -1,5 +1,6 @@
 import type { Story } from "../types/types";
 import { NewsPost } from "./NewsPost";
+import StorySkeleton from "./StorySkeleton";
 
 interface NewsFeedProps {
   stories: Story[];
@@ -8,7 +9,16 @@ interface NewsFeedProps {
 }
 
 const NewsFeed = ({ stories, error, isLoading }: NewsFeedProps) => {
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div>
+        {Array.from({ length: 10 }).map((_, index) => (
+          <StorySkeleton key={index} />
+        ))}
+      </div>
+    );
+  }
+
   if (error) return <div>An unknown error has occurred</div>;
 
   return (
