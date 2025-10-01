@@ -6,9 +6,17 @@ interface NewsFeedProps {
   stories: Story[];
   error: string;
   isLoading: boolean;
+  loadMoreStories: () => void;
+  hasMore: boolean;
 }
 
-const NewsFeed = ({ stories, error, isLoading }: NewsFeedProps) => {
+const NewsFeed = ({
+  stories,
+  error,
+  isLoading,
+  loadMoreStories,
+  hasMore,
+}: NewsFeedProps) => {
   if (isLoading) {
     return (
       <div>
@@ -22,10 +30,19 @@ const NewsFeed = ({ stories, error, isLoading }: NewsFeedProps) => {
   if (error) return <div>An unknown error has occurred</div>;
 
   return (
-    <div>
+    <div className="space-y-4">
       {stories.map((story) => (
         <NewsPost key={story.id} stories={story} />
       ))}
+
+      {hasMore && (
+        <button
+          className="bg-gray-800 py-2 px-4 rounded-md text-gray-50 cursor-pointer hover:bg-gray-700 transition-all duration-200"
+          onClick={loadMoreStories}
+        >
+          More...
+        </button>
+      )}
     </div>
   );
 };

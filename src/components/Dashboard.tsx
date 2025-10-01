@@ -13,6 +13,8 @@ const Dashboard = () => {
     error,
     isLoading,
     fetchNewsStories,
+    loadMoreStories,
+    hasMore,
   } = useNews();
   const [selectedStoryType, setSelectedStoryType] = useState<StoryType>("top");
 
@@ -39,7 +41,7 @@ const Dashboard = () => {
           HackerNews
         </h1>
       </header>
-      <div className="flex items center">
+      <div className="flex items-center">
         <FilterBar
           activeFilter={selectedStoryType}
           onStoryChange={handleFilterChange}
@@ -51,6 +53,8 @@ const Dashboard = () => {
           stories={filteredStories(searchTerm)}
           error={error}
           isLoading={isLoading}
+          loadMoreStories={loadMoreStories}
+          hasMore={hasMore}
         />
       </div>
     </div>
