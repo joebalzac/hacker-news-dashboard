@@ -37,7 +37,7 @@ const NewsFeed = ({
 
       {hasMore && (
         <button
-          className="bg-gray-800 py-2 px-4 rounded-md text-gray-50 cursor-pointer hover:bg-gray-700 transition-all duration-200"
+          className="bg-gray-800 mt-4 mb-12 py-2 px-4 rounded-md text-gray-50 cursor-pointer hover:bg-gray-700 transition-all duration-200"
           onClick={loadMoreStories}
         >
           More...

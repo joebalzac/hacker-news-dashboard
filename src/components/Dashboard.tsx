@@ -4,6 +4,7 @@ import type { StoryType } from "../types/types";
 import FilterBar from "./FilterBar";
 import NewsFeed from "./NewsFeed";
 import SearchBar from "./SearchBar";
+import useDebounce from "../hooks/useDebounce";
 
 const Dashboard = () => {
   const {
@@ -17,6 +18,7 @@ const Dashboard = () => {
     hasMore,
   } = useNews();
   const [selectedStoryType, setSelectedStoryType] = useState<StoryType>("top");
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const handleFilterChange = (filterType: string) => {
     setSelectedStoryType(filterType as StoryType);
@@ -50,7 +52,7 @@ const Dashboard = () => {
       </div>
       <div>
         <NewsFeed
-          stories={filteredStories(searchTerm)}
+          stories={filteredStories(debouncedSearchTerm)}
           error={error}
           isLoading={isLoading}
           loadMoreStories={loadMoreStories}

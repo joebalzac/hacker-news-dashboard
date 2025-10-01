@@ -57,7 +57,7 @@ const useNews = () => {
       }
 
       return stories;
-    } catch (error) {
+    } catch (error) { 
       if (error) {
         setError("an unknown error has occurred");
       }
